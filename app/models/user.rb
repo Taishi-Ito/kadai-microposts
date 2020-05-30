@@ -26,4 +26,9 @@ end
 def following?(other_user)
  self.following.include?(other_user)
 end
+
+def feed_microposts
+ Microposts.where(user_id: self.following_ids + [self.id])
+end
+
 end
