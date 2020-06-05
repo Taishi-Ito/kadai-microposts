@@ -1,0 +1,28 @@
+<% if users.any? %>
+  <ul class="list-unstyled">
+    <% users.each do |user| %>
+      <li class="media md-3">
+        <img class="mr-2 rounded" src="<%= gravatar_url(user.user, { size: 50 }) %>" alt="">
+          <div class="media-body">
+              <div>
+              <%= link_to user.user.name, user_path(user.user) %> <span class="text-muted">posted at <%= user.created_at %></span>
+              </div>
+                <div>
+                  <p class="mb-0"><%= user.content %></p>
+                </div>
+                 <div class= "row">
+                  <div class="col-2">
+                    <% if current_user == user.user %>
+                      <%= link_to "Delete", user, method: :delete, data: { confirm: "You sure?" }, class: 'btn btn-danger btn-sm' %>
+                    <% end %>
+                  </div>
+                <div class="col-2">
+                  <%= render 'favorites/register_button', micropost: user %>
+                </div>
+              </div>
+          </div>
+      </li>
+    <% end %>
+  </ul>
+    <%= paginate users %>
+<% end %>
